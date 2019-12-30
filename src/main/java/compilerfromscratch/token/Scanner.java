@@ -1,5 +1,10 @@
 package compilerfromscratch.token;
 
+// lexer api:
+// 1) instantiate by passing in path to a source file as a string
+// 2) call the tokenize method, which will return tokens
+// 3) print out the tokens (for testing)
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +32,7 @@ public final class Scanner {
     private int startOfCurrent = 0;
 
     // tokenize source code by going through it char by char
-    public List<Token> scan() {
+    public List<Token> tokenize() {
         while (!isAtEnd()) {
             startOfCurrent = current;
             scanToken();
@@ -97,7 +102,7 @@ public final class Scanner {
             advance();
         }
         String text = getTokenValue();
-        TokenType tokenType = KEYWORDS.get(text); // see if this identifier is a keyword
+        TokenType tokenType = KEYWORDS.get(text); // see if this token value is a keyword
         if (tokenType == null) {
             tokenType = IDENTIFIER;
         }
