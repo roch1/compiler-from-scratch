@@ -30,6 +30,7 @@ public final class Scanner {
 
     private int current = 0;
     private int startOfCurrent = 0;
+    private int line = 1;
 
     // tokenize source code by going through it char by char
     public List<Token> tokenize() {
@@ -48,6 +49,9 @@ public final class Scanner {
                 break;
             case ')':
                 addToken(RIGHT_PAREN);
+                break;
+            case '\n':
+                line++;
                 break;
             default:
                 if (isAlpha(c)) {
@@ -126,7 +130,7 @@ public final class Scanner {
     }
 
     private void addToken(TokenType tokenType, String tokenValue) {
-        tokens.add(new Token(tokenType, tokenValue));
+        tokens.add(new Token(tokenType, tokenValue, line));
     }
 
 }
