@@ -5,6 +5,9 @@ package compilerfromscratch.token;
 // 2) call the tokenize method, which will return tokens
 // 3) print out the tokens (for testing)
 
+import compilerfromscratch.error.Error;
+import compilerfromscratch.error.ErrorReporter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +26,11 @@ public final class Scanner {
 
     private final List<Token> tokens = new ArrayList<>();
     private final String source;
+    private final ErrorReporter errorReporter;
 
-    public Scanner(String source) {
+    public Scanner(String source, ErrorReporter errorReporter) {
         this.source = source;
+        this.errorReporter = errorReporter;
     }
 
     private int current = 0;
@@ -53,13 +58,17 @@ public final class Scanner {
             case '\n':
                 line++;
                 break;
+            case ' ':
+            case '\r':
+            case '\t':
+                break;
             default:
                 if (isAlpha(c)) {
                     identifier();
                 } else if (isDigit(c)) {
                     number();
                 } else {
-                    // unexpected character error, with line number
+                    errorReporter.addError(new Error(c, line, "illegal character: " + c));
                 }
                 break;
         }
