@@ -68,7 +68,7 @@ public final class Scanner {
                 } else if (isDigit(c)) {
                     number();
                 } else {
-                    errorReporter.addError(new Error(c, line, "illegal character: " + c));
+                    errorReporter.addError(new Error(c, line, "illegal character"));
                 }
                 break;
         }

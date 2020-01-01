@@ -18,14 +18,14 @@ public class StandardError implements ErrorReporter {
     }
 
     @Override
-    public boolean hasError() {
+    public boolean hasErrors() {
         return errors.size() > 0;
     }
 
     @Override
-    public void reportError() {
+    public void reportErrors() {
         for (Error error : errors) {
-            System.err.println(filePath + ":" + error.getLineNumber() + ": " + error.getMessage());
+            System.err.println(filePath + ":" + error.getLineNumber() + ": " + error.getMessage() + ":" + error.getC());
         }
 
         System.out.println(errors.size() + " error(s)");

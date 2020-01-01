@@ -20,8 +20,8 @@ public class CompilerFromScratch {
             String filePath = args[0];
             ErrorReporter errorReporter = new StandardError(filePath, new ArrayList<>());
             List<Token> tokens = runSourceFile(filePath, errorReporter);
-            if (errorReporter.hasError()) {
-                errorReporter.reportError();
+            if (errorReporter.hasErrors()) {
+                errorReporter.reportErrors();
                 System.exit(65);
             } else {
                 System.out.println(tokens);
