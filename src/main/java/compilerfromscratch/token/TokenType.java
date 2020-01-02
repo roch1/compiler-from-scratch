@@ -12,5 +12,8 @@ public enum TokenType {
 
     // single-character tokens
     LEFT_PAREN,
-    RIGHT_PAREN
+    RIGHT_PAREN,
+
+    // end-of-file
+    EOF
 }

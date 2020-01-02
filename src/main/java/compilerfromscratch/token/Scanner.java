@@ -43,6 +43,7 @@ public final class Scanner {
             startOfCurrent = current;
             scanToken();
         }
+        addToken(EOF, "");
         return tokens;
     }
 

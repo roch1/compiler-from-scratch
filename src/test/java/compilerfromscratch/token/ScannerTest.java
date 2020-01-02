@@ -36,7 +36,8 @@ class ScannerTest {
 
         List<Token> expected = Arrays.asList(new Token(DEF, "def", 1), new Token(IDENTIFIER, "function_name", 1),
                 new Token(LEFT_PAREN, "(", 1), new Token(RIGHT_PAREN, ")", 1),
-                new Token(INTEGER, "1", 2), new Token(END, "end", 3));
+                new Token(INTEGER, "1", 2), new Token(END, "end", 3),
+                new Token(EOF, "", 3));
         List<Token> actual = new Scanner(sourceCode, errorReporter).tokenize();
 
         assertEquals(expected, actual);
@@ -53,7 +54,7 @@ class ScannerTest {
         new Scanner(sourceCode, errorReporter).tokenize();
 
         assertEquals(expectedErrors, errors);
-        assertEquals(1, errors.size());
+        assertEquals(expectedErrors.size(), errors.size());
         assertTrue(errorReporter.hasErrors());
     }
 
