@@ -5,6 +5,8 @@ import compilerfromscratch.error.ErrorReporter;
 import compilerfromscratch.error.StandardError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,12 +47,14 @@ class ScannerTest {
         assertFalse(errorReporter.hasErrors());
     }
 
-    @Test
-    void givenInvalidSourceCode_ThenTokenizedWithErrors() {
-        String sourceCode = "def sum(¬)\n" +
+    @ParameterizedTest
+    @ValueSource(chars = {'¬', '~', '#'})
+    void givenIllegalCharactersInSourceCode_ThenTokenizedWithErrors(char illegalChar) {
+        String sourceCode = "def sum()\n" +
+                                illegalChar +
                             "end";
 
-        List<Error> expectedErrors = Collections.singletonList(new Error('¬', 1, "illegal character"));
+        List<Error> expectedErrors = Collections.singletonList(new Error(illegalChar, 2, "illegal character"));
         new Scanner(sourceCode, errorReporter).tokenize();
 
         assertEquals(expectedErrors, errors);
